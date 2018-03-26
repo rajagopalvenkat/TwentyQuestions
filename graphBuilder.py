@@ -1,21 +1,17 @@
 # -*- coding: utf-8 -*-
-import csv
-
-
+import matplotlib.pyplot as plt
 def readcsv():
     G={}
     
-    with open('C:\\Users\\Joel\\Downloads\\cn\\assertions.csv','rt',encoding="utf8") as file:
-        rows = csv.reader(file, delimiter='\t', quotechar='\"')
+    with open('G','rt',encoding="utf8") as file:
         print('start')
         totalRelations=0
         totalItems=0
-        for i,row in enumerate(rows):
-            if not row[2].startswith('/c/en/') or not row[3].startswith('/c/en/'):
-                continue
-            #print(row)
+        for i,row in enumerate(file):
             totalRelations+=1
-            rel,item1,item2 = row[1],row[2][6:],row[3][6:]
+            if (len(row.split()) != 3):
+                continue
+            rel,item1,item2 = row.split()
             #print(item1)
             if item1 in G:
                 G[item1][0] += [item2]  #edge
@@ -28,13 +24,21 @@ def readcsv():
         print(totalItems)
         print(totalRelations)
         print('done')
-        return G
+
+        Hist = {}
+        for item in G:
+            if G[item][2] not in Hist:
+                Hist[G[item][2]] = 1
+            else:
+                Hist[G[item][2]] +=1
+            if G[item][2] > 1500:
+                print(item, G[item][2])
+        xAxis = list(Hist.keys())
+        yAxis = list(Hist.values())
+        plt.scatter(xAxis,yAxis)
+
+        plt.show()
+        print('test')
+
         
 readcsv()
-            
-        
-    '''stats:
-        937,364     words (split by part of speech)
-        2,809,253   relations
-    '''
-    #44:30 to 47:30
