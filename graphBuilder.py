@@ -24,21 +24,22 @@ def readcsv():
         print(totalItems)
         print(totalRelations)
         print('done')
+        return G
 
-        Hist = {}
-        for item in G:
-            if G[item][2] not in Hist:
-                Hist[G[item][2]] = 1
-            else:
-                Hist[G[item][2]] +=1
-            if G[item][2] > 1500:
-                print(item, G[item][2])
-        xAxis = list(Hist.keys())
-        yAxis = list(Hist.values())
-        plt.scatter(xAxis,yAxis)
+def plotHist(G):
+    Hist = {}
+    for item in G:
+        if G[item][2] not in Hist:
+            Hist[G[item][2]] = 1
+        else:
+            Hist[G[item][2]] +=1
+        if G[item][2] > 1500:
+            print(item, G[item][2])
+    xAxis = list(Hist.keys())
+    yAxis = list(Hist.values())
+    plt.scatter(xAxis,yAxis)
 
-        plt.show()
-        print('test')
+    plt.show()
 
         
 readcsv()
